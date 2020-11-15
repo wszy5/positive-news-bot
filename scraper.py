@@ -23,4 +23,3 @@ def video_news():
     for i in body:
         arr.append(i.find("a").get("href"))
     return arr   
-
