@@ -12,3 +12,15 @@ def main_news():
     for i in news:
         arr.append(i.find("a").get("href"))
     return arr
+
+def video_news():
+
+    site = requests.get("https://dobrewiadomosci.net.pl/category/wideo/")
+    content = soup(site.content,'html.parser')
+
+    body = content.find_all("h2",{"class":"entry-title"})
+    arr = []
+    for i in body:
+        arr.append(i.find("a").get("href"))
+    return arr   
+
