@@ -23,3 +23,14 @@ def video_news():
     for i in body:
         arr.append(i.find("a").get("href"))
     return arr   
+
+def health_news():
+
+    site = requests.get("https://dobrewiadomosci.net.pl/category/zdrowie/")
+    content = soup(site.content,'html.parser')
+    body = content.find_all("h2",{"class":"entry-title"})
+    arr = []
+    for i in body:
+        arr.append(i.find("a").get("href"))
+    return arr
+
