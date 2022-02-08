@@ -3,9 +3,10 @@ import telebot
 import random
 import os
 from telebot import types
-from env import config
 
-bot = telebot.TeleBot(config.api_key,parse_mode=None)
+API_KEY = os.environ.get("APIkey_pb")
+
+bot = telebot.TeleBot(API_KEY)
 
 def make_default_keyboard():
     """Makes default KeyBoard"""
@@ -13,7 +14,7 @@ def make_default_keyboard():
     itembtn1 = types.InlineKeyboardButton(text='/Popularne', )
     itembtn2 = types.InlineKeyboardButton(text='/Wideo', )
     itembtn3 = types.InlineKeyboardButton(text='/Zdrowie', )
-    itembtn4 = types.InlineKeyboardButton(text='/Info', )
+    itembtn4 = types.InlineKeyboardButton(text='/info', )
     markup.add(itembtn1, itembtn2,itembtn3,itembtn4)
     return markup
 
@@ -28,18 +29,18 @@ def send_video_news(message):
     arr = video_news()
     news = random.choice(arr)
     bot.send_message(message.chat.id,news,reply_markup=make_default_keyboard())
-    
-    
+
 @bot.message_handler(commands=['Zdrowie'])
 def send_video_news(message):
     arr = health_news()
     news = random.choice(arr)
     bot.send_message(message.chat.id,news,reply_markup=make_default_keyboard())
 
-
-@bot.message_handler(commands=['Info'])
+@bot.message_handler(commands=['start'])
+@bot.message_handler(commands=['info'])
 def send_about(message):
-    bot.send_message(message.chat.id,'Bota stworzył Wiktor Szymański',reply_markup=make_default_keyboard())
+    msg = "Bot pobiera artykuły ze strony dobrewiadomosci.net.pl\nAutor: Wiktor Szymański"
+    bot.send_message(message.chat.id,msg,reply_markup=make_default_keyboard())
 
 
 bot.polling()
