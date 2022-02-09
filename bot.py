@@ -3,8 +3,11 @@ import telebot
 import random
 import os
 from telebot import types
+from dotenv import load_dotenv
 
-API_KEY = os.environ.get("APIkey_pb")
+load_dotenv()
+
+API_KEY = os.getenv("APIkey")
 
 bot = telebot.TeleBot(API_KEY)
 
